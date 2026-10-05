@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>Cartão Personalizado — frente</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 856px; height: 540px; box-sizing: border-box; padding: 56px; background: {{accent}}; border-radius: 36px; position: relative; display: flex; flex-direction: column; justify-content: space-between; font-family: 'Manrope', system-ui, sans-serif; color: #0E0E10; overflow: hidden">
+<span style="position: absolute; right: -40px; bottom: -150px; font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 520px; line-height: 1; letter-spacing: -0.06em; color: rgba(14,14,16,0.10)" aria-hidden="true">MC</span>
+<div style="display: flex; justify-content: space-between; align-items: center; position: relative">
+<span style="font-size: 20px; font-weight: 700; letter-spacing: 0.16em">X COMPANY</span>
+<div style="display: flex; align-items: center; gap: 8px">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0E0E10" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="#0E0E10" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg>
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em">ClicaAqui</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; position: relative">
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 80px; line-height: 0.98; letter-spacing: -0.035em">Miguel<br>Costa</span>
+<span style="font-size: 24px; font-weight: 600">CEO — X Company</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF4D1C","options":["#FF4D1C","#D4FF3A","#F5F5F4","#7DB4FF"]},"$preview":{"width":856,"height":540}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF4D1C' };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>ClicaAqui — editar o meu perfil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0E0E10}a:hover{color:#3F3F46}
+</style>
+</helmet>
+<div style="min-height: 1100px; background: #F4F4F5; font-family: 'Manrope', system-ui, sans-serif; color: #0E0E10">
+<div style="background: #FFFFFF; border-bottom: 1px solid #E4E4E7">
+<div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="width: 36px; height: 36px; border-radius: 10px; background: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E0E10" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="#0E0E10" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg></div>
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -0.02em">ClicaAqui</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+<span style="font-size: 14px; font-weight: 600; color: #52525B">clicaaqui.pt/joaosilva</span>
+<a href="ProfileCreator.dc.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 12px; background: #0E0E10; color: #FFFFFF; font-weight: 700; font-size: 14px; text-decoration: none">Ver o meu perfil</a>
+</div>
+</div>
+</div>
+<div style="max-width: 1240px; margin: 0 auto; padding: 32px 24px 48px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 36px; letter-spacing: -0.03em">O meu ClicaAqui</h1>
+<span style="font-size: 15px; color: #52525B">Tudo o que mudares aqui aparece logo em quem tocar no teu cartão.</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800">Perfil</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="f-name" style="font-size: 13px; font-weight: 700; color: #3F3F46">Nome</label><input id="f-name" value="{{name}}" onChange="{{onName}}" style="height: 44px; padding: 0 14px; border: 1.5px solid #D4D4D8; border-radius: 12px; font: inherit; font-size: 15px"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="f-role" style="font-size: 13px; font-weight: 700; color: #3F3F46">O que fazes</label><input id="f-role" value="{{role}}" onChange="{{onRole}}" style="height: 44px; padding: 0 14px; border: 1.5px solid #D4D4D8; border-radius: 12px; font: inherit; font-size: 15px"></div>
+</div>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800">Links e redes</h2>
+<button type="button" onClick="{{toggleAdd}}" style="height: 44px; padding: 0 16px; border: none; border-radius: 12px; background: {{accent}}; color: #0E0E10; font: inherit; font-weight: 800; font-size: 14px; cursor: pointer">{{addLabel}}</button>
+</div>
+<sc-if value="{{adding}}" hint-placeholder-val="{{ false }}">
+<div style="border: 1.5px dashed #D4D4D8; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; font-weight: 700; color: #3F3F46">Escolhe o que queres adicionar</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{available}}" as="p" hint-placeholder-count="4">
+<button type="button" onClick="{{p.add}}" style="height: 44px; padding: 0 14px; border: 1.5px solid #E4E4E7; border-radius: 12px; background: #FFFFFF; font: inherit; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{p.icon}}"></path></svg>{{p.label}}</button>
+</sc-for>
+<sc-if value="{{noneLeft}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; color: #52525B">Já adicionaste tudo.</span></sc-if>
+</div>
+</div>
+</sc-if>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+<div style="border: 1.5px solid #E4E4E7; border-radius: 16px; padding: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; opacity: {{r.opacity}}">
+<div style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; background: #F4F4F5; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.icon}}"></path></svg></div>
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<label for="{{r.inputId}}" style="font-size: 14px; font-weight: 800">{{r.label}}</label>
+<input id="{{r.inputId}}" value="{{r.value}}" placeholder="{{r.ph}}" onChange="{{r.onValue}}" style="height: 40px; padding: 0 12px; border: 1.5px solid #E4E4E7; border-radius: 10px; font: inherit; font-size: 14px; min-width: 0">
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+<sc-if value="{{r.canConnect}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{r.connect}}" style="height: 40px; padding: 0 12px; border: 1.5px solid #0E0E10; border-radius: 10px; background: #FFFFFF; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer">Ligar conta</button>
+</sc-if>
+<sc-if value="{{r.isConnected}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{r.connect}}" style="height: 40px; padding: 0 12px; border: none; border-radius: 10px; background: #DCFCE7; color: #14532D; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer">Ligado · {{r.followers}}</button>
+</sc-if>
+<button type="button" onClick="{{r.toggle}}" style="height: 40px; padding: 0 12px; border: none; border-radius: 10px; background: {{r.visBg}}; color: {{r.visFg}}; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer">{{r.visLabel}}</button>
+<button type="button" onClick="{{r.up}}" disabled="{{r.isFirst}}" aria-label="Mover para cima" style="width: 40px; height: 40px; border: 1.5px solid #E4E4E7; border-radius: 10px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 15l6-6 6 6"></path></svg></button>
+<button type="button" onClick="{{r.down}}" disabled="{{r.isLast}}" aria-label="Mover para baixo" style="width: 40px; height: 40px; border: 1.5px solid #E4E4E7; border-radius: 10px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button type="button" onClick="{{r.remove}}" aria-label="Remover" style="width: 40px; height: 40px; border: none; border-radius: 10px; background: #FEE2E2; color: #991B1B; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{noRows}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; color: #52525B">Ainda não tens links. Carrega em “Adicionar”.</span></sc-if>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800">Cor do perfil</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<sc-for list="{{swatches}}" as="s" hint-placeholder-count="5">
+<button type="button" onClick="{{s.pick}}" aria-label="{{s.name}}" style="width: 48px; height: 48px; border-radius: 24px; background: {{s.hex}}; border: {{s.border}}; cursor: pointer"></button>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="flex: 1 1 360px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+<span style="font-size: 13px; font-weight: 800; letter-spacing: 0.12em; color: #52525B">O QUE AS PESSOAS VEEM</span>
+<div style="width: 360px; max-width: 100%; height: 740px; border-radius: 44px; border: 10px solid #0E0E10; background: #FFFFFF; overflow: hidden; display: flex; flex-direction: column; box-sizing: border-box">
+<div style="height: 100px; flex-shrink: 0; background: {{accent}}"></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 16px; margin-top: -44px; text-align: center">
+<div style="width: 88px; height: 88px; border-radius: 44px; background: #0E0E10; border: 4px solid #FFFFFF; box-sizing: border-box; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 28px">{{initials}}</div>
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em">{{name}}</span>
+<span style="font-size: 14px; font-weight: 500; color: #52525B; margin-top: -6px">{{role}}</span>
+<sc-if value="{{hasPills}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px">
+<sc-for list="{{pills}}" as="pl" hint-placeholder-count="2"><span style="padding: 6px 12px; border-radius: 999px; background: #F4F4F5; font-size: 13px; font-weight: 700">{{pl.text}}</span></sc-for>
+</div>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 16px 16px 0">
+<sc-for list="{{visible}}" as="v" hint-placeholder-count="4">
+<a href="#" style="display: flex; align-items: center; gap: 12px; height: 50px; padding: 0 14px; border: 1.5px solid #E4E4E7; border-radius: 14px; text-decoration: none; font-weight: 700; font-size: 15px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{v.icon}}"></path></svg><span style="flex: 1">{{v.label}}</span></a>
+</sc-for>
+<sc-if value="{{noVisible}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; color: #52525B; text-align: center; padding: 12px 0">Sem links visíveis.</span></sc-if>
+<button type="button" style="margin-top: 6px; height: 52px; border: none; border-radius: 14px; background: #0E0E10; color: #FFFFFF; font: inherit; font-weight: 700; font-size: 15px; cursor: pointer">Guardar contacto</button>
+</div>
+<span style="margin-top: auto; padding: 14px; text-align: center; font-size: 12px; font-weight: 600; color: #71717A">clicaaqui.pt/joaosilva</span>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.nextId = 10;
+    this.state = {
+      name: 'João Silva',
+      role: 'Creator • Entrepreneur',
+      accent: '#FF4D1C',
+      adding: false,
+      links: [
+        { id: 1, type: 'instagram', value: '@joaosilva', visible: true, connected: true },
+        { id: 2, type: 'tiktok', value: '@joaosilva', visible: true, connected: true },
+        { id: 3, type: 'youtube', value: '', visible: true, connected: false },
+        { id: 4, type: 'website', value: 'joaosilva.pt', visible: true, connected: false },
+        { id: 5, type: 'email', value: 'parcerias@joaosilva.pt', visible: false, connected: false }
+      ]
+    };
+  }
+  platforms() {
+    const MUS = 'M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0a3 3 0 1 1 6 0zM20 16a3 3 0 1 1-6 0a3 3 0 1 1 6 0z';
+    return {
+      instagram: { label: 'Instagram', ph: '@utilizador', connect: true, mock: '125K', icon: 'M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5zM12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8zM17.5 6.5h.01' },
+      tiktok: { label: 'TikTok', ph: '@utilizador', connect: true, mock: '82K', icon: MUS },
+      youtube: { label: 'YouTube', ph: 'youtube.com/@canal', connect: true, mock: '12K', icon: 'M6 5h12a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4zM10 9l5 3-5 3z' },
+      linkedin: { label: 'LinkedIn', ph: 'linkedin.com/in/nome', connect: false, icon: 'M5 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zM8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' },
+      whatsapp: { label: 'WhatsApp', ph: '+351 9xx xxx xxx', connect: false, icon: 'M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.6A8 8 0 1 1 21 12z' },
+      email: { label: 'Email de negócios', ph: 'nome@empresa.pt', connect: false, icon: 'M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zM3 7l9 6 9-6' },
+      phone: { label: 'Telefone', ph: '+351 9xx xxx xxx', connect: false, icon: 'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z' },
+      website: { label: 'Website', ph: 'www.teusite.pt', connect: false, icon: 'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18' },
+      spotify: { label: 'Spotify', ph: 'open.spotify.com/artist/...', connect: false, icon: MUS }
+    };
+  }
+  setLink(id, patch) {
+    this.setState({ links: this.state.links.map((l) => (l.id === id ? Object.assign({}, l, patch) : l)) });
+  }
+  move(i, d) {
+    const links = this.state.links.slice();
+    const j = i + d;
+    if (j < 0 || j >= links.length) return;
+    const t = links[i]; links[i] = links[j]; links[j] = t;
+    this.setState({ links: links });
+  }
+  renderVals() {
+    const P = this.platforms();
+    const s = this.state;
+    const used = s.links.map((l) => l.type);
+    const rows = s.links.map((l, i) => {
+      const p = P[l.type];
+      return {
+        label: p.label, icon: p.icon, ph: p.ph, value: l.value, inputId: 'link-' + l.id,
+        onValue: (e) => this.setLink(l.id, { value: e.target.value }),
+        canConnect: p.connect && !l.connected,
+        isConnected: p.connect && l.connected,
+        followers: (p.mock || '') + ' seguidores',
+        connect: () => this.setLink(l.id, { connected: !l.connected }),
+        visLabel: l.visible ? 'Visível' : 'Oculto',
+        visBg: l.visible ? '#0E0E10' : '#F4F4F5',
+        visFg: l.visible ? '#FFFFFF' : '#3F3F46',
+        opacity: l.visible ? '1' : '0.6',
+        toggle: () => this.setLink(l.id, { visible: !l.visible }),
+        remove: () => this.setState({ links: s.links.filter((x) => x.id !== l.id) }),
+        up: () => this.move(i, -1),
+        down: () => this.move(i, 1),
+        isFirst: i === 0,
+        isLast: i === s.links.length - 1
+      };
+    });
+    const available = Object.keys(P).filter((k) => used.indexOf(k) === -1).map((k) => ({
+      label: P[k].label, icon: P[k].icon,
+      add: () => {
+        const id = this.nextId++;
+        this.setState({ adding: false, links: s.links.concat([{ id: id, type: k, value: '', visible: true, connected: false }]) });
+      }
+    }));
+    const vis = s.links.filter((l) => l.visible);
+    const pills = vis.filter((l) => P[l.type].connect && l.connected).map((l) => ({ text: P[l.type].mock + ' ' + P[l.type].label }));
+    const swatchList = [['Laranja', '#FF4D1C'], ['Lima', '#D4FF3A'], ['Azul', '#7DB4FF'], ['Rosa', '#FF9EC7'], ['Cinza', '#D4D4D8']];
+    const initials = s.name.trim().split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('') || '?';
+    return {
+      name: s.name, role: s.role, accent: s.accent, adding: s.adding,
+      addLabel: s.adding ? 'Fechar' : '+ Adicionar',
+      onName: (e) => this.setState({ name: e.target.value }),
+      onRole: (e) => this.setState({ role: e.target.value }),
+      toggleAdd: () => this.setState({ adding: !s.adding }),
+      rows: rows, noRows: rows.length === 0,
+      available: available, noneLeft: available.length === 0,
+      visible: vis.map((l) => ({ label: P[l.type].label, icon: P[l.type].icon })),
+      noVisible: vis.length === 0,
+      pills: pills, hasPills: pills.length > 0,
+      initials: initials,
+      swatches: swatchList.map((w) => ({
+        name: w[0], hex: w[1],
+        border: s.accent === w[1] ? '3px solid #0E0E10' : '3px solid #FFFFFF',
+        pick: () => this.setState({ accent: w[1] })
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

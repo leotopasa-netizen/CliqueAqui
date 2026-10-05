@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>Logótipo ClicaAqui</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1200px; height: 640px; box-sizing: border-box; padding: 64px; background: #FFFFFF; display: flex; flex-direction: column; justify-content: space-between; font-family: 'Manrope', system-ui, sans-serif; color: #0E0E10">
+<div style="display: flex; align-items: center; gap: 28px">
+<div style="width: 140px; height: 140px; border-radius: 36px; background: {{accent}}; display: flex; align-items: center; justify-content: center">
+<svg width="92" height="92" viewBox="0 0 24 24" fill="none" stroke="#0E0E10" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="#0E0E10" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 120px; line-height: 0.95; letter-spacing: -0.04em">ClicaAqui</span>
+<span style="font-size: 26px; font-weight: 500; color: #52525B">O teu network, num toque.</span>
+</div>
+</div>
+<div style="display: flex; gap: 24px">
+<div style="width: 180px; height: 180px; border-radius: 44px; background: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="104" height="104" viewBox="0 0 24 24" fill="none" stroke="#0E0E10" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="#0E0E10" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg></div>
+<div style="width: 180px; height: 180px; border-radius: 44px; background: #0E0E10; display: flex; align-items: center; justify-content: center"><svg width="104" height="104" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="{{accent}}" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg></div>
+<div style="width: 180px; height: 180px; border-radius: 44px; background: #FFFFFF; border: 2px solid #E4E4E7; box-sizing: border-box; display: flex; align-items: center; justify-content: center"><svg width="104" height="104" viewBox="0 0 24 24" fill="none" stroke="#0E0E10" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="#0E0E10" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg></div>
+<div style="flex: 1; height: 180px; border-radius: 44px; background: #0E0E10; display: flex; align-items: center; justify-content: center; gap: 14px; color: #FFFFFF">
+<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="{{accent}}" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg>
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 52px; letter-spacing: -0.03em">ClicaAqui</span>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF4D1C","options":["#FF4D1C","#D4FF3A","#3D7BFF"]},"$preview":{"width":1200,"height":640}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF4D1C' };
+  }
+}
+</script>
+</body>
+</html>

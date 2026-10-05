@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>Anéis NFC — cores</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1400px; height: 846px; box-sizing: border-box; padding: 64px; background: #E7E5E4; font-family: 'Manrope', system-ui, sans-serif; color: #0E0E10; display: flex; flex-direction: column; justify-content: center; gap: 56px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 60px; line-height: 1; letter-spacing: -0.035em">Anel ClicaAqui</span>
+<span style="font-size: 22px; font-weight: 500; color: #3F3F46">Parece um anel normal. O chip está escondido no interior.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px">
+<sc-for list="{{rings}}" as="r" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 16px">
+<svg width="200" height="200" viewBox="0 0 200 200" aria-hidden="true">
+<ellipse cx="100" cy="176" rx="70" ry="12" fill="rgba(14,14,16,0.12)"></ellipse>
+<circle cx="100" cy="96" r="70" fill="none" stroke="{{r.edge}}" stroke-width="34"></circle>
+<circle cx="100" cy="96" r="70" fill="none" stroke="{{r.color}}" stroke-width="30"></circle>
+<path d="M48 60 A70 70 0 0 1 100 26" fill="none" stroke="{{r.shine}}" stroke-width="6" stroke-linecap="round"></path>
+</svg>
+<span style="font-size: 20px; font-weight: 700">{{r.name}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1400,"height":846}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      rings: [
+        { name: 'Rosa', color: '#F2A7C3', edge: '#D88AA8', shine: 'rgba(255,255,255,0.7)' },
+        { name: 'Branco', color: '#FAFAF9', edge: '#D6D3D1', shine: 'rgba(255,255,255,0.9)' },
+        { name: 'Preto', color: '#0E0E10', edge: '#0E0E10', shine: 'rgba(255,255,255,0.25)' },
+        { name: 'Cinzento', color: '#9CA3AF', edge: '#6B7280', shine: 'rgba(255,255,255,0.6)' },
+        { name: 'Dourado', color: '#D4AF37', edge: '#A8861F', shine: 'rgba(255,248,220,0.85)' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

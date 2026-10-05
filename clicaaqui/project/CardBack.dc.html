@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>Cartão Essencial — verso</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 856px; height: 540px; box-sizing: border-box; padding: 56px; background: #0E0E10; border-radius: 36px; display: flex; align-items: center; gap: 56px; font-family: 'Manrope', system-ui, sans-serif; color: #FFFFFF; overflow: hidden">
+<div style="width: 300px; height: 300px; flex-shrink: 0; box-sizing: border-box; background: #FFFFFF; border-radius: 24px; padding: 24px; display: flex; align-items: center; justify-content: center">
+<div style="width: 100%; height: 100%; border: 2px dashed #A1A1AA; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #52525B; font-size: 20px; font-weight: 600">[QR code]</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px; flex: 1; min-width: 0">
+<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="{{accent}}" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg>
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.02; letter-spacing: -0.03em">Toca ou digitaliza.</span>
+<span style="font-size: 24px; font-weight: 600; color: #D4D4D8">clicaaqui.pt/joaosilva</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF4D1C","options":["#FF4D1C","#D4FF3A","#FFFFFF","#3D7BFF"]},"$preview":{"width":856,"height":540}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF4D1C' };
+  }
+}
+</script>
+</body>
+</html>

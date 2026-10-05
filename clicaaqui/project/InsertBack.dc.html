@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>Cartão de instruções — verso</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 600px; height: 846px; box-sizing: border-box; padding: 52px 52px 44px; background: #FFFFFF; font-family: 'Manrope', system-ui, sans-serif; color: #0E0E10; display: flex; flex-direction: column; gap: 26px">
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 50px; line-height: 1; letter-spacing: -0.035em">Ativa em 30 segundos</span>
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; gap: 16px; align-items: flex-start"><span style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; background: {{accent}}; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px">1</span><span style="font-size: 22px; line-height: 1.35; padding-top: 5px">Toca com o teu ClicaAqui no teu telemóvel, ou vai a <b>clicaaqui.pt/ativar</b> e escreve o código impresso no verso.</span></div>
+<div style="display: flex; gap: 16px; align-items: flex-start"><span style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; background: {{accent}}; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px">2</span><span style="font-size: 22px; line-height: 1.35; padding-top: 5px">Cria a tua conta.</span></div>
+<div style="display: flex; gap: 16px; align-items: flex-start"><span style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; background: {{accent}}; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px">3</span><span style="font-size: 22px; line-height: 1.35; padding-top: 5px">Junta as tuas redes: Instagram, TikTok, YouTube, LinkedIn, WhatsApp, email. E já está.</span></div>
+</div>
+<div style="height: 2px; background: #E4E4E7"></div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 18px; font-weight: 800; letter-spacing: 0.12em">DICAS</span>
+<span style="font-size: 20px; line-height: 1.35"><b>iPhone:</b> encosta ao topo, junto à câmara.</span>
+<span style="font-size: 20px; line-height: 1.35"><b>Android:</b> confirma que o NFC está ligado.</span>
+<span style="font-size: 20px; line-height: 1.35"><b>Anel:</b> encosta a parte de cima ao topo do telemóvel.</span>
+<span style="font-size: 20px; line-height: 1.35"><b>Autocolante:</b> cola-o na capa do telemóvel.</span>
+</div>
+<div style="margin-top: auto; display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: #52525B">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E0E10" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="#0E0E10" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg>
+<span>clicaaqui.pt</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF4D1C","options":["#FF4D1C","#D4FF3A","#7DD3FC"]},"$preview":{"width":600,"height":846}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF4D1C' };
+  }
+}
+</script>
+</body>
+</html>

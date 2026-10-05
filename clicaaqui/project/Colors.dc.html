@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>Cartões em cor sólida</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1400px; height: 800px; box-sizing: border-box; padding: 64px; background: #F4F4F5; font-family: 'Manrope', system-ui, sans-serif; color: #0E0E10; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 48px; align-content: center">
+<sc-for list="{{cards}}" as="c" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 252px; box-sizing: border-box; padding: 26px; border-radius: 18px; background: {{c.bg}}; border: {{c.border}}; color: {{c.fg}}; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 24px rgba(14,14,16,0.10)">
+<div style="display: flex; align-items: center; gap: 8px">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{c.mark}}" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="{{c.mark}}" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg>
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.02em">ClicaAqui</span>
+</div>
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 38px; letter-spacing: -0.03em">@onome</span>
+</div>
+<span style="font-size: 18px; font-weight: 700">{{c.name}}</span>
+</div>
+</sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1400,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      cards: [
+        { name: 'Rosa', bg: '#F7A8C8', fg: '#0E0E10', mark: '#0E0E10', border: 'none' },
+        { name: 'Preto', bg: '#0E0E10', fg: '#FFFFFF', mark: '#FF4D1C', border: 'none' },
+        { name: 'Branco', bg: '#FFFFFF', fg: '#0E0E10', mark: '#FF4D1C', border: '1.5px solid #E4E4E7' },
+        { name: 'Laranja', bg: '#FF4D1C', fg: '#0E0E10', mark: '#0E0E10', border: 'none' },
+        { name: 'Azul', bg: '#1E3AE6', fg: '#FFFFFF', mark: '#FFFFFF', border: 'none' },
+        { name: 'Verde', bg: '#0F3D2E', fg: '#FFFFFF', mark: '#D4FF3A', border: 'none' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>Cartão de instruções — frente</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 600px; height: 846px; box-sizing: border-box; padding: 56px; background: {{accent}}; font-family: 'Manrope', system-ui, sans-serif; color: #0E0E10; display: flex; flex-direction: column; justify-content: space-between">
+<svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#0E0E10" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="18" r="2.2" fill="#0E0E10" stroke="none"></circle><path d="M6 11a7 7 0 0 1 7 7"></path><path d="M6 5a13 13 0 0 1 13 13"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<span style="font-family: 'Bricolage Grotesque', 'Manrope', sans-serif; font-weight: 800; font-size: 84px; line-height: 0.95; letter-spacing: -0.04em">Bem-vindo ao ClicaAqui.</span>
+<span style="font-size: 28px; font-weight: 600">O teu network, num toque.</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF4D1C","options":["#FF4D1C","#D4FF3A","#FFFFFF"]},"$preview":{"width":600,"height":846}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF4D1C' };
+  }
+}
+</script>
+</body>
+</html>
