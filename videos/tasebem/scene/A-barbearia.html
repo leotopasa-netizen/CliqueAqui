@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-PT"><head><meta charset="utf-8"><title>Tá-se Bem · A · Barbearia</title>
+<link rel="stylesheet" href="base.css">
+<script>const SCENE_W = 1080, SCENE_H = 1920, DUREE = 60;</script>
+</head><body><div id="palco"></div>
+<script>
+const AM = '#F9BA17', VD = '#3DDC5C', TI = '#121214', BR = '#FFFFFF';
+const NEG = 'Barbearia do Rui';
+window.FILME = { duracao: 60, planos: [
+  { ate: 1.7, tipo: 'texto', fundo: 'escuro', linhas: [
+    { txt: 'Enquanto', tam: 150, cor: AM, modo: 'bate', a: 0.0 },
+    { txt: 'cortas', tam: 230, it: true, a: 0.35, modo: 'bate' },
+    { txt: 'um cabelo…', tam: 150, a: 0.75 } ] },
+  { ate: 3.5, tipo: 'notifs', fundo: 'claro', a0: 0.05, passo: 0.32, itens: [
+    { titulo: 'Chamada perdida', texto: 'João Ferreira', icone: '☎', cor: '#e5e7eb' },
+    { titulo: 'Chamada perdida', texto: '+351 912 ••• •••', icone: '☎', cor: '#e5e7eb' },
+    { titulo: 'Chamada perdida', texto: 'Miguel Costa', icone: '☎', cor: '#e5e7eb' },
+    { titulo: 'Instagram', texto: 'tiago.m: tens vaga amanhã?', icone: 'IG', cor: '#e5e7eb' } ],
+    linhas: [ { txt: 'O telemóvel', tam: 120, cor: TI, a: 0.2, sombra: false }, { txt: 'não pára', tam: 210, cor: TI, it: true, a: 0.45, modo: 'bate', sombra: false } ], topoTitulo: 1120 },
+  { ate: 6.0, tipo: 'pilulas', fundo: 'claro', topo: 560, a0: 0.1, passo: 0.6, itens: ['Chamada perdida', 'DM por responder', 'Cliente que faltou'] },
+  { ate: 8.6, tipo: 'conversa', fundo: 'claro', topo: 700, a0: 0.1, passo: 0.55, msgs: [
+      { de: 'ele', nome: 'Tiago', txt: 'Boas! Tens vaga sábado de manhã?', hora: '09:12' },
+      { de: 'ele', nome: 'Tiago', txt: 'Olá??', hora: '11:40' },
+      { de: 'ele', nome: 'Tiago', txt: 'Esquece, já marquei noutro lado. Abraço', hora: '13:05' } ],
+    linhas: [ { txt: 'E o cliente', tam: 110, cor: TI, sombra: false, a: 0.0 }, { txt: 'vai a outro lado', tam: 150, cor: '#C2410C', it: true, sombra: false, a: 1.6, modo: 'bate' } ], topoTitulo: 220 },
+  { ate: 10.9, tipo: 'texto', fundo: 'fogo', linhas: [
+    { txt: 'E se a tua', tam: 120, a: 0.0 },
+    { txt: 'barbearia', tam: 220, it: true, a: 0.3, modo: 'bate' },
+    { txt: 'marcasse', tam: 170, a: 0.75 },
+    { txt: 'sozinha?', tam: 210, cor: TI, sombra: false, it: true, a: 1.1, modo: 'bate' } ], batidas: [0.3, 1.1] },
+  { ate: 12.3, tipo: 'texto', fundo: 'escuro', linhas: [
+    { txt: 'Com a', tam: 110, a: 0.0 },
+    { txt: 'Tá-se Bem', tam: 190, fonte: 'redonda', minus: true, cor: AM, a: 0.25, modo: 'bate' } ], batidas: [0.25] },
+  { ate: 19.2, tipo: 'app', fundo: 'escuro', negocio: NEG, topoTitulo: 120, descer: 170, escala: 1.12,
+    linhas: [ { txt: 'O cliente escolhe', tam: 96, a: 0.05 } ],
+    ecras: [
+      { a: 0.0, passo: '1 · Serviço', escolhe: 1, toque: 0.9, opcoes: [['Corte', '12 € · 30 min'], ['Corte + Barba', '18 € · 45 min'], ['Barba', '8 € · 20 min'], ['Corte criança', '10 € · 25 min']] },
+      { a: 1.5, passo: '2 · Barbeiro', escolhe: 1, toque: 0.8, opcoes: [['Qualquer um', 'mais cedo'], ['Rui', 'disponível'], ['Tiago', 'disponível'], ['Hugo', 'folga hoje']] },
+      { a: 3.0, passo: '3 · Dia', escolhe: 2, toque: 0.7, opcoes: [['Hoje', 'qui 16'], ['Amanhã', 'sex 17'], ['Sábado', 'sáb 18'], ['Terça', 'ter 21']] },
+      { a: 4.3, passo: '4 · Hora · sáb 18', escolhe: 4, toque: 1.4, nota: 'Só aparecem horários livres',
+        grelha: ['09:00', 'x09:30', 'x10:00', 'x10:15', '10:30', '11:15', 'x11:45', '12:00', 'x14:30', '15:00', 'x15:45', '16:30'] } ] },
+  { ate: 20.1, tipo: 'texto', fundo: 'preto', linhas: [ { txt: 'Sem', tam: 130, cor: AM, a: 0 }, { txt: 'chamadas.', tam: 200, it: true, a: 0.12, modo: 'bate' } ], batidas: [0.12] },
+  { ate: 21.0, tipo: 'texto', fundo: 'claro', linhas: [ { txt: 'Sem', tam: 130, cor: '#C2410C', sombra: false, a: 0 }, { txt: 'mensagens.', tam: 200, cor: TI, it: true, sombra: false, a: 0.12, modo: 'bate' } ], batidas: [0.12] },
+  { ate: 22.0, tipo: 'texto', fundo: 'amarelo', linhas: [ { txt: 'Sem', tam: 130, cor: TI, sombra: false, a: 0 }, { txt: 'confusões.', tam: 200, cor: TI, it: true, sombra: false, a: 0.12, modo: 'bate' } ], batidas: [0.12] },
+  { ate: 23.6, tipo: 'app', fundo: 'escuro', negocio: NEG, descer: 40, escala: 1.1, rot: -3,
+    ecras: [ { a: 0, passo: 'Marcação confirmada', feito: 'Marcado!', detalhes: ['Corte + Barba · com Rui', 'Sábado, 18 · 10:30'] } ] },
+  { ate: 25.0, tipo: 'texto', fundo: 'escuro', linhas: [ { txt: 'E ele', tam: 140, a: 0 }, { txt: 'volta.', tam: 280, cor: AM, it: true, a: 0.3, modo: 'bate' } ], batidas: [0.3] },
+  { ate: 30.0, tipo: 'carimbos', fundo: 'claro', negocio: NEG, n: 5, a0: 0.9, passo: 0.55, simbolo: '✂', premio: '50%',
+    regra: 'Ao 5.º corte: 50% de desconto', topo: 820,
+    linhas: [ { txt: 'Cada corte', tam: 150, cor: TI, sombra: false, a: 0.0 }, { txt: 'conta', tam: 240, cor: '#C2410C', it: true, sombra: false, a: 0.3, modo: 'bate' } ], topoTitulo: 260, batidas: [3.1] },
+  { ate: 31.0, tipo: 'visto', fundo: 'verde', batidas: [0.05] },
+  { ate: 33.6, tipo: 'texto', fundo: 'fogo', linhas: [
+    { txt: 'E tu?', tam: 200, it: true, a: 0, modo: 'bate' },
+    { txt: 'Continuas', tam: 150, a: 0.9 },
+    { txt: 'a cortar.', tam: 190, cor: TI, sombra: false, it: true, a: 1.3, modo: 'bate' } ], batidas: [0, 1.3] },
+  { ate: 35.4, tipo: 'texto', fundo: 'claro', linhas: [
+    { txt: 'E acompanhas', tam: 150, cor: TI, sombra: false, it: true, a: 0 },
+    { txt: 'tudo', tam: 260, cor: '#C2410C', sombra: false, a: 0.4, modo: 'bate' } ], batidas: [0.4] },
+  { ate: 36.6, tipo: 'texto', fundo: 'preto', linhas: [ { txt: 'em tempo', tam: 150, cor: AM, a: 0 }, { txt: 'real', tam: 300, a: 0.2, modo: 'bate' } ], batidas: [0.2] },
+  { ate: 42.2, tipo: 'painel', fundo: 'escuro', titulo: NEG + ' · sábado', topo: 560,
+    linhas: [ { txt: 'A agenda do dia', tam: 120, a: 0.0 }, { txt: 'cada barbeiro', tam: 110, cor: AM, a: 1.6 }, { txt: 'cada cliente', tam: 110, a: 3.2 } ], topoTitulo: 110,
+    colunas: ['Rui', 'Tiago', 'Hugo'], horas: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00'],
+    marcacoes: ['Corte', '', 'Barba', 'Corte+B', 'Corte', 'Corte', 'Corte', 'Corte+B', '', 'Corte+B', '', 'Barba', '', 'Corte', 'Corte', 'Corte', 'Barba', '', 'Corte', 'Corte+B', 'Corte'],
+    a0: 0.6, passo: 0.22, contadores: [ { rotulo: 'marcações<br>hoje', de: 0, ate: 15, a: 0.6, dur: 3.7 }, { rotulo: 'confirmadas', de: 0, ate: 15, a: 0.8, dur: 3.7 } ] },
+  { ate: 46.0, tipo: 'pilulas', fundo: 'escuro', topo: 640, a0: 0.4, passo: 0.6, itens: ['Site', 'Marcações', 'Fidelização', 'Painel do dono'],
+    linhas: [ { txt: 'Tudo num', tam: 120, a: 0 }, { txt: 'só sítio', tam: 190, cor: AM, it: true, a: 0.2, modo: 'bate' } ], topoTitulo: 200 },
+  { ate: 48.4, tipo: 'texto', fundo: 'claro', linhas: [
+    { txt: 'Com o nome', tam: 130, cor: TI, sombra: false, a: 0 },
+    { txt: 'da tua barbearia', tam: 130, cor: TI, sombra: false, it: true, a: 0.3 },
+    { txt: 'barbeariadorui.pt', tam: 90, fonte: 'redonda', minus: true, cor: '#C2410C', sombra: false, a: 0.9, modo: 'bate', mt: 40 } ] },
+  { ate: 51.3, tipo: 'texto', fundo: 'fogo', linhas: [
+    { txt: 'A pergunta não é', tam: 120, a: 0 },
+    { txt: 'se vais ter', tam: 150, a: 0.6 },
+    { txt: 'marcações online', tam: 150, cor: TI, sombra: false, it: true, a: 1.1, modo: 'bate' } ], batidas: [1.1] },
+  { ate: 54.4, tipo: 'texto', fundo: 'preto', linhas: [
+    { txt: 'É se vais ser', tam: 130, a: 0 },
+    { txt: 'o primeiro', tam: 230, cor: AM, it: true, a: 0.6, modo: 'bate' },
+    { txt: 'da tua rua.', tam: 150, a: 1.2 } ], batidas: [0.6] },
+  { ate: 60, tipo: 'logo', fundo: 'preto', slogan: 'Site · Marcações · Fidelização · Painel', botao: 'tassbem.pt', rodape: 'WhatsApp +351 933 748 892', semEntrada: true },
+] };
+</script>
+<script src="engine.js"></script>
+</body></html>

@@ -1,0 +1,2 @@
+// L'encodage est fait par ffmpeg, lancé par tools/rendu.mjs : ce fichier ne sert plus qu'à le dire.
+console.log('encode_flux : remplacé par ffmpeg. Lance le rendu avec « node tools/rendu.mjs video … » ; pour vérifier ffmpeg : node tools/verifier.mjs');

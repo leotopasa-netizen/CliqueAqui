@@ -1,0 +1,2 @@
+// Lanceur : le code est dans tools/encode.mjs. Sur Windows, macOS et Linux : node tools/encode/encode probe fichier.mp4
+import('../encode.mjs').catch((e) => { console.error(e.message || e); process.exit(1); });

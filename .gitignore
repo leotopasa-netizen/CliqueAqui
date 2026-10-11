@@ -1,3 +1,7 @@
 # /brag render output
 **/brag-output*/
 .DS_Store
+
+# Tá-se Bem video renders and audio
+videos/tasebem/out/
+videos/tasebem/audio/
