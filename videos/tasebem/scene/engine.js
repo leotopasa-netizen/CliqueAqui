@@ -71,6 +71,7 @@
   }
 
   /* ── tipografia ── */
+  const medida = document.createElement('canvas').getContext('2d');
   /* linhas: [{ txt, tam, cor, it, a (início relativo, s), modo, fonte }] */
   function linhas(t, L, opts = {}) {
     const al = opts.alinhar || 'center';
@@ -78,7 +79,14 @@
     for (const l of L) {
       const fonte = l.fonte === 'redonda' ? "'Fredoka'" : l.fonte === 'ui' ? "'Inter'" : "'Anton'";
       const peso = l.fonte === 'redonda' ? 700 : l.fonte === 'ui' ? 800 : 400;
-      const tam = l.tam || 150;
+      let tam = l.tam || 150;
+      { /* ajusta o tamanho para a linha caber na largura útil */
+        medida.font = `${peso} ${tam}px ${fonte}`;
+        const txt = l.minus ? l.txt : String(l.txt).toUpperCase();
+        const larg = medida.measureText(txt).width + (l.ls ?? -0.5) * txt.length;
+        const max = (l.max || 920);
+        if (larg > max) tam = Math.floor(tam * max / larg);
+      }
       const sk = l.it ? 'skewX(-9deg)' : '';
       const sombra = l.sombra === false ? '' : 'text-shadow:0 18px 40px rgba(0,0,0,.28);';
       const st = entra(t, l.a || 0, l.d || 0.3, l.modo || 'sobe', l.dist || 140);
@@ -149,7 +157,17 @@
     return `<div style="margin:18px 30px 0;padding:28px 30px;border-radius:26px;background:${ativo ? C.amarelo : '#fff'};
       box-shadow:0 6px 18px rgba(0,0,0,.08);display:flex;justify-content:space-between;align-items:center;font-family:'Inter';
       transform:scale(${ativo ? mix(1, 1.04, k) : 1});opacity:${ativo ? 1 : 1}">
-      <span style="font-size:34px;font-weight:800;color:#111">${esc(txt)}</span><span style="font-size:30px;font-weight:700;color:${ativo ? '#111' : '#666'}">${esc(sub)}</span></div>`;
+      <span style="font-size:${(txt + sub).length > 30 ? 28 : (txt + sub).length > 25 ? 31 : 34}px;font-weight:800;color:#111">${esc(txt)}</span><span style="font-size:${(txt + sub).length > 30 ? 25 : 30}px;font-weight:700;white-space:nowrap;margin-left:12px;color:${ativo ? '#111' : '#666'}">${esc(sub)}</span></div>`;
+  }
+  function qr(semente, tam) {   // código QR ilustrativo (padrão determinístico com os três marcadores)
+    const n = 25, c = tam / n; let r = '';
+    const marca = (x, y) => (x < 7 && y < 7) || (x >= n - 7 && y < 7) || (x < 7 && y >= n - 7);
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+      if (marca(x, y)) continue;
+      if (hash(semente * 31 + x * 7.3 + y * 13.1) > 0.52) r += `<rect x="${x * c}" y="${y * c}" width="${c}" height="${c}"/>`;
+    }
+    const f = (x, y) => `<rect x="${x * c}" y="${y * c}" width="${7 * c}" height="${7 * c}" rx="${c}"/><rect x="${(x + 1) * c}" y="${(y + 1) * c}" width="${5 * c}" height="${5 * c}" fill="#fff"/><rect x="${(x + 2) * c}" y="${(y + 2) * c}" width="${3 * c}" height="${3 * c}"/>`;
+    return `<svg width="${tam}" height="${tam}" viewBox="0 0 ${tam} ${tam}" style="background:#fff;border-radius:18px;padding:0"><g fill="#111">${r}${f(0, 0)}${f(n - 7, 0)}${f(0, n - 7)}</g></svg>`;
   }
   function dedo(x, y, k) {   // ponto de toque
     if (k <= 0) return '';
@@ -220,9 +238,9 @@
         if (e.nota) ecra += `<div style="margin:10px 30px;font-family:'Inter';font-weight:700;font-size:28px;color:#2f9e44;opacity:${lin(te, 0.6, 0.9)}">● ${esc(e.nota)}</div>`;
       } else if (e.feito) {
         const k = back(lin(te, 0.05, 0.45));
-        ecra += `<div style="padding:80px 40px;text-align:center;font-family:'Inter'">
-          <div style="width:220px;height:220px;margin:0 auto;border-radius:50%;background:${C.verde};display:flex;align-items:center;justify-content:center;transform:scale(${k});
-            font-size:150px;color:#fff;font-weight:800">✓</div>
+        ecra += `<div style="padding:${e.qr ? 50 : 80}px 40px;text-align:center;font-family:'Inter'">
+          ${e.qr ? `<div style="margin:0 auto;width:300px;transform:scale(${k})">${qr(e.qr, 300)}</div>` : `<div style="width:220px;height:220px;margin:0 auto;border-radius:50%;background:${C.verde};display:flex;align-items:center;justify-content:center;transform:scale(${k});
+            font-size:150px;color:#fff;font-weight:800">✓</div>`}
           <div style="font-family:'Anton';font-size:84px;color:#111;margin-top:40px;text-transform:uppercase;${entra(te, 0.3, 0.3)}">${esc(e.feito)}</div>
           ${(e.detalhes || []).map((x, j) => `<div style="font-size:34px;font-weight:700;color:#444;margin-top:18px;${entra(te, 0.45 + j * 0.12, 0.3)}">${esc(x)}</div>`).join('')}</div>`;
       } else {
@@ -242,6 +260,79 @@
       }
       const ent = lin(t, 0, 0.35), cam = p.camara ? p.camara(t, d) : '';
       s += `<div style="position:absolute;inset:0;transform:translateY(${p.descer ?? 120}px) ${cam}">${telemovel(ecra + `<div style="position:absolute;inset:0">${toque}</div>`, `opacity:${cl(ent * 3)};filter:blur(${(1 - eOut(ent)) * 18}px);transform:scale(${mix(1.25, p.escala ?? 0.95, eOut(ent))}) rotate(${mix(-6, p.rot ?? 0, eOut(ent))}deg)`)}</div>`;
+      return s;
+    },
+    /* percurso em etapas que se acendem, com lembrete no fim */
+    percurso(p, t, d) {
+      let s = p.linhas ? linhas(t, p.linhas, { topo: p.topoTitulo ?? 170 }) : '';
+      const a0 = p.a0 ?? 0.5, passo = p.passo ?? 0.6, n = p.etapas.length, y0 = p.topo ?? 620, gap = 190;
+      const prog = cl((t - a0) / (passo * (n - 1)));
+      s += `<div style="position:absolute;left:186px;top:${y0 + 60}px;width:10px;height:${gap * (n - 1)}px;border-radius:5px;background:rgba(255,255,255,.12)"></div>
+        <div style="position:absolute;left:186px;top:${y0 + 60}px;width:10px;height:${gap * (n - 1) * prog}px;border-radius:5px;background:${C.amarelo}"></div>`;
+      p.etapas.forEach((e, i) => {
+        const a = a0 + i * passo, k = lin(t, a, a + 0.25), on = k > 0;
+        s += `<div style="position:absolute;left:120px;top:${y0 + i * gap}px;display:flex;align-items:center;gap:44px;${entra(t, i * 0.08, 0.3, 'esq', 40)}">
+          <div style="width:142px;height:142px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:'Anton';font-size:64px;
+            background:${on ? C.amarelo : '#1c1c1f'};color:${on ? '#111' : '#71717a'};border:4px solid ${on ? C.amarelo : '#2e2e33'};transform:scale(${on ? mix(1.35, 1, back(k)) : 1});
+            box-shadow:${on ? '0 0 60px rgba(249,186,23,.45)' : 'none'}">${on && i < n - 1 && t > a + passo ? '✓' : i + 1}</div>
+          <div><div style="font-family:'Anton';font-size:84px;line-height:1;text-transform:uppercase;color:${on ? '#fff' : '#5a5a60'}">${esc(e[0])}</div>
+          <div style="font-family:'Inter';font-weight:700;font-size:32px;color:${on ? '#d4d4d8' : '#4a4a50'};margin-top:8px">${esc(e[1])}</div></div></div>`;
+      });
+      if (p.lembrete) {
+        const a = a0 + n * passo + 0.1, k = eOut(lin(t, a, a + 0.35));
+        s += `<div style="position:absolute;left:90px;top:${y0 + n * gap + 30}px;${k <= 0 ? 'opacity:0' : `transform:translateY(${(1 - k) * 200}px);filter:blur(${(1 - k) * 12}px);opacity:${cl(k * 2)}`}">${notif(p.lembrete)}</div>`;
+      }
+      return s;
+    },
+    /* planta da sala com mesas VIP que ficam reservadas */
+    planta(p, t, d) {
+      let s = p.linhas ? linhas(t, p.linhas, { topo: p.topoTitulo ?? 150 }) : '';
+      const k0 = eOut(lin(t, 0, 0.35));
+      s += `<div style="position:absolute;left:70px;width:940px;top:${p.topo ?? 600}px;height:900px;border-radius:44px;background:#0f0f11;border:2px solid #2a2a2e;${sombraCartao}
+        transform:perspective(1600px) rotateX(${mix(40, 18, k0)}deg) scale(${mix(0.8, 1, k0)});opacity:${cl(k0 * 3)};filter:blur(${(1 - k0) * 14}px)">
+        <div style="position:absolute;left:320px;top:40px;width:300px;height:110px;border-radius:20px;background:linear-gradient(90deg,#2a1d05,#4a3308);border:2px solid ${C.amarelo};
+          font-family:'Anton';font-size:48px;color:${C.amarelo};display:flex;align-items:center;justify-content:center">${esc(p.palco || 'DJ')}</div>
+        <div style="position:absolute;left:250px;top:200px;width:440px;height:330px;border-radius:30px;border:3px dashed rgba(255,255,255,.18);
+          font-family:'Inter';font-weight:800;font-size:34px;color:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center">${esc(p.centro || 'PISTA')}</div>`;
+      (p.mesas || []).forEach((m, i) => {
+        const a = (p.a0 ?? 0.6) + (m.ordem ?? i) * (p.passo ?? 0.35), k = m.livre ? 0 : lin(t, a, a + 0.22);
+        const on = k > 0;
+        s += `<div style="position:absolute;left:${m.x}px;top:${m.y}px;width:150px;height:150px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+          font-family:'Inter';font-weight:800;background:${on ? C.amarelo : '#1c1c1f'};color:${on ? '#111' : '#a1a1aa'};border:3px solid ${on ? C.amarelo : '#34343a'};
+          transform:scale(${on ? mix(1.4, 1, back(k)) : 1});box-shadow:${on ? '0 0 50px rgba(249,186,23,.5)' : 'none'}">
+          <span style="font-size:34px">${esc(m.nome)}</span><span style="font-size:22px;margin-top:4px">${on ? 'RESERVADA' : esc(m.preco || '')}</span></div>`;
+      });
+      return s + '</div>';
+    },
+    /* calendário sincronizado entre canais */
+    sync(p, t, d) {
+      let s = p.linhas ? linhas(t, p.linhas, { topo: p.topoTitulo ?? 150 }) : '';
+      const canais = p.canais, y0 = p.topo ?? 640;
+      // nó central (o site do alojamento)
+      const kc = back(lin(t, 0.1, 0.45));
+      s += `<div style="position:absolute;left:290px;top:${y0 + 330}px;width:500px;height:170px;border-radius:40px;background:${C.amarelo};display:flex;align-items:center;justify-content:center;
+        font-family:'Fredoka';font-weight:700;font-size:54px;color:#111;transform:scale(${kc});box-shadow:0 0 80px rgba(249,186,23,.5)">${esc(p.centro)}</div>`;
+      canais.forEach((c, i) => {
+        const x = i === 0 ? 60 : 640, y = y0, a = 0.5 + i * 0.25, k = eOut(lin(t, a, a + 0.3));
+        s += `<div style="position:absolute;left:${x}px;top:${y}px;width:380px;height:150px;border-radius:32px;background:#1c1c1f;border:2px solid #34343a;
+          display:flex;align-items:center;justify-content:center;font-family:'Inter';font-weight:800;font-size:46px;color:#fff;${entra(t, a, 0.3, i ? 'dir' : 'esq', 40)}">${esc(c)}</div>`;
+        // pulsos de sincronização
+        for (let j = 0; j < 3; j++) {
+          const ph = ((t - 1.0 - j * 0.33 - i * 0.16) % 1 + 1) % 1, vis = t > 1.0 + j * 0.33;
+          if (!vis) continue;
+          const sx = x + 190, sy = y + 150, ex = 540, ey = y0 + 330, px = mix(sx, ex, ph), py = mix(sy, ey, ph);
+          s += `<div style="position:absolute;left:${px - 14}px;top:${py - 14}px;width:28px;height:28px;border-radius:50%;background:${C.amarelo};opacity:${k * (1 - Math.abs(ph - 0.5))}"></div>`;
+        }
+      });
+      if (p.chips) {
+        s += `<div style="position:absolute;left:60px;right:60px;top:${y0 + 600}px;display:flex;flex-wrap:wrap;gap:24px;justify-content:center">`;
+        p.chips.forEach((c, i) => {
+          s += `<div style="padding:24px 34px;border-radius:24px;background:#141416;border:2px solid ${i === (p.chipAtivo ?? -1) ? C.amarelo : '#2e2e33'};font-family:'Inter';color:#fff;
+            ${entra(t, 1.4 + i * 0.25, 0.3, 'sobe', 50)}"><div style="font-weight:700;font-size:28px;color:#a1a1aa">${esc(c[0])}</div>
+            <div style="font-family:'Anton';font-size:58px;color:${C.amarelo}">${esc(c[1])}</div></div>`;
+        });
+        s += '</div>';
+      }
       return s;
     },
     /* cartão de carimbos */
@@ -276,8 +367,13 @@
           <span style="width:16px;height:16px;border-radius:50%;background:#ff5f57"></span><span style="width:16px;height:16px;border-radius:50%;background:#febc2e"></span><span style="width:16px;height:16px;border-radius:50%;background:#28c840"></span>
           <span style="margin-left:18px">${esc(p.titulo || 'Painel')}</span><span style="margin-left:auto;color:${C.verde};font-size:26px">● AO VIVO</span></div>
         <div style="display:flex;gap:22px;padding:28px 34px 10px">`;
+      /* contador ligado à grelha: conta as células já preenchidas no instante t (opcionalmente só as que contêm `filtro`) */
+      const cheias = (filtro) => (p.marcacoes || []).reduce((n, it, id) => {
+        if (!it || (filtro && !it.includes(filtro))) return n;
+        const a = (p.a0 ?? 0.5) + (p.ordem ? p.ordem.indexOf(id) : id) * (p.passo ?? 0.09);
+        return n + (t >= a ? 1 : 0); }, 0);
       (p.contadores || []).forEach((c, i) => {
-        const v = Math.round(c.de + (c.ate - c.de) * eOut(lin(t, c.a ?? 0.4, (c.a ?? 0.4) + (c.dur ?? 1.6))));
+        const v = c.ate === 'auto' ? cheias(c.filtro) : Math.round(c.de + (c.ate - c.de) * eOut(lin(t, c.a ?? 0.4, (c.a ?? 0.4) + (c.dur ?? 1.6))));
         s += `<div style="flex:1;background:#0b0b0c;border-radius:24px;padding:24px 28px;display:flex;align-items:center;gap:20px">
           <span style="font-family:'Anton';font-size:96px;line-height:1;color:${i ? C.verde : '#fff'}">${c.fmt ? c.fmt(v) : v}</span>
           <span style="font-family:'Inter';font-weight:800;font-size:24px;color:#a1a1aa;text-transform:uppercase;line-height:1.2">${c.rotulo}</span></div>`;
