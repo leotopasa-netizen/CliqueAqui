@@ -418,6 +418,9 @@
     },
   };
 
+  /* planos adicionais definidos noutro ficheiro (ex.: engine-guia.js), com acesso às mesmas ferramentas */
+  if (window.EXTRA) Object.assign(PLANOS, window.EXTRA({ C, W, H, cl, lin, eOut, eIn, eIO, back, mix, hash, esc, entra, linhas, seda, estrelas, pilula, logoSVG, notif, bolha, telemovel, dedo, qr, sombraCartao }));
+
   /* ── montagem ── */
   const F = window.FILME;
   let inicio = 0;

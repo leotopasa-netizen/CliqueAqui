@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-PT"><head><meta charset="utf-8"><title>Tá-se Bem · guia da plataforma</title>
+<link rel="stylesheet" href="base.css">
+<script>const SCENE_W = 1080, SCENE_H = 1920, DUREE = 90;</script>
+</head><body><div id="palco"></div>
+<script>
+// Guia da plataforma (lado do dono), 90 s. Cortes na grelha de 0,5 s; 74,5–82,5 fica vazio: aí entra a montagem de clips dos 26 vídeos.
+const AM = '#F9BA17', TI = '#121214', LA = '#C2410C', VD = '#3DDC5C';
+const T = (txt, o = {}) => ({ txt, ...o });
+const tit = (a, b) => [T(a, { tam: 100, cor: AM }), T(b, { tam: 130, it: true, a: 0.2, modo: 'bate' })];
+const NEG = 'Barbearia do Rui';
+window.FILME = { duracao: 90, planos: [
+  { ate: 1.5, tipo: 'texto', fundo: 'escuro', linhas: [T('O teu negócio', { tam: 150, cor: AM, modo: 'bate', a: -0.2 }), T('inteiro', { tam: 260, it: true, a: 0.45, modo: 'bate' })], batidas: [0.45] },
+  { ate: 3.0, tipo: 'texto', fundo: 'fogo', linhas: [T('no', { tam: 160 }), T('bolso.', { tam: 330, cor: TI, sombra: false, it: true, a: 0.15, modo: 'bate' })], batidas: [0.15] },
+  { ate: 5.0, tipo: 'texto', fundo: 'preto', linhas: [T('Guia rápido', { tam: 130 }), T('Tá-se Bem', { tam: 190, fonte: 'redonda', minus: true, cor: AM, a: 0.4, modo: 'bate' }), T('em 90 segundos', { tam: 90, a: 0.9 })], batidas: [0.4] },
+
+  { ate: 13.0, tipo: 'login', fundo: 'escuro', linhas: tit('1 · Entras', 'com o teu número'), topoTitulo: 90, descer: 225, escala: 1.08, numero: '912 345 678', codigo: '482913', nome: 'Rui', inicial: 'R', deriva: 0.004 },
+  { ate: 14.0, tipo: 'texto', fundo: 'preto', batidas: [0.12], linhas: [T('Sem', { tam: 130, cor: AM }), T('passwords.', { tam: 210, it: true, a: 0.12, modo: 'bate' })] },
+  { ate: 15.0, tipo: 'texto', fundo: 'amarelo', batidas: [0.12], linhas: [T('Só o teu', { tam: 130, cor: TI, sombra: false }), T('número.', { tam: 240, cor: TI, it: true, sombra: false, a: 0.12, modo: 'bate' })] },
+
+  { ate: 23.0, tipo: 'casa', fundo: 'escuro', linhas: tit('2 · O painel', 'ao vivo'), topoTitulo: 90, descer: 225, escala: 1.08, deriva: 0.004, negocio: NEG, sub: 'Hoje · quinta, 16',
+    cartoes: [{ rotulo: 'Faturação hoje', de: 0, ate: 486, suf: '€' }, { rotulo: 'Marcações hoje', de: 0, ate: 14 }, { rotulo: 'Clientes novos', de: 0, ate: 5 }, { rotulo: 'Carimbos dados', de: 0, ate: 11 }],
+    curva: [0, 0, 24, 54, 72, 108, 150, 168, 204, 240, 276, 312, 348, 390, 420, 450, 486],
+    feed: [['10:42', 'Nova marcação · Ana · Corte + Barba'], ['10:35', 'Cartão completo · Miguel · 50%', VD], ['10:31', 'Cancelamento · João · vaga libertada', '#ef4444'], ['10:20', 'Marcação por telefone (AI) · Sexta 15:00'], ['10:02', 'Nova cliente · Sofia Mendes']] },
+
+  { ate: 30.0, tipo: 'bloqueio', fundo: 'escuro', linhas: tit('3 · Sabes tudo', 'na hora'), topoTitulo: 90, topoRelogio: 400, topo: 780, passo: 1.05, hora: '10:42', data: 'quinta-feira, 16 de outubro',
+    itens: [{ titulo: 'Nova marcação', texto: 'Ana · Corte + Barba · sáb 10:30', icone: '✂' }, { titulo: 'Marcação cancelada', texto: 'João · qui 15:00 · vaga libertada', icone: '!' },
+      { titulo: 'Cartão completo', texto: 'Miguel Costa tem 50% no próximo corte', icone: '★' }, { titulo: 'Nova cliente', texto: 'Sofia Mendes criou conta', icone: '+' },
+      { titulo: 'Tá-se Bem AI', texto: 'Atendi uma chamada e marquei sex 15:00', icone: 'AI' }] },
+
+  { ate: 38.0, tipo: 'agenda', fundo: 'escuro', linhas: tit('4 · A agenda', 'de toda a equipa'), topoTitulo: 90, topo: 450, cabecalho: NEG + ' · sábado, 18',
+    colunas: ['Rui', 'Tiago', 'Hugo'], horas: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'],
+    blocos: [{ col: 0, linha: 0, dur: 2, txt: 'Corte + Barba', sub: 'Ana' }, { col: 0, linha: 3, dur: 1, txt: 'Corte', sub: 'Pedro', move: { a: 1.4, para: 5 } }, { col: 0, linha: 7, dur: 1, txt: 'Corte', sub: 'Hugo C.' },
+      { col: 1, linha: 1, dur: 1, txt: 'Barba', sub: 'Luís' }, { col: 1, linha: 4, dur: 2, txt: 'Corte + Barba', sub: 'João', cancela: 3.3 }, { col: 1, linha: 7, dur: 2, txt: 'Corte + Barba', sub: 'Nuno' },
+      { col: 2, linha: 0, dur: 1, txt: 'Corte', sub: 'Rita' }, { col: 2, linha: 2, dur: 1, txt: 'Corte criança', sub: 'Tomás' }, { col: 2, linha: 6, dur: 1, txt: 'Nova · Corte', sub: 'Sofia', cria: 5.0 }],
+    acoes: [['Alterar', 1.4], ['Cancelar', 3.3], ['Criar', 5.0]] },
+
+  { ate: 45.0, tipo: 'entregas', fundo: 'escuro', linhas: tit('5 · Entregas', 'em curso'), topoTitulo: 90, topo: 450, pedido: 'Pizzaria Forno Vivo · pedido #318', minutos: 8,
+    rota: [[140, 540], [150, 400], [420, 370], [450, 220], [760, 190], [820, 110]],
+    pedidos: [{ nome: '#318 · Margherita familiar', sub: 'Entrega · Rua de Cedofeita', de: 2, muda: [6.4] }, { nome: '#319 · 2× Diavola', sub: 'Takeaway · 20:15', de: 1, muda: [2.5] }, { nome: '#320 · Calzone + 4 queijos', sub: 'Entrega · Bonfim', de: 0, muda: [1.5, 4.5] }] },
+
+  { ate: 53.0, tipo: 'faturacao', fundo: 'escuro', linhas: tit('6 · Quanto', 'faturaste'), topoTitulo: 90, topo: 450, cabecalho: NEG + ' · esta semana',
+    dias: [['Seg', 0], ['Ter', 312], ['Qua', 268], ['Qui', 405], ['Sex', 377], ['Sáb', 698], ['Dom', 0]], top: [['Corte', 46], ['Corte + Barba', 38], ['Barba', 16]] },
+
+  { ate: 60.0, tipo: 'clientes', fundo: 'escuro', linhas: tit('7 · Conhece', 'os teus clientes'), topoTitulo: 90, descer: 225, escala: 1.08, deriva: 0.004, negocio: NEG, total: '412', procura: 'Ana', abre: 3.0,
+    lista: [['Ana Ferreira', '12 visitas · última há 3 semanas'], ['Ana Rita Lopes', '3 visitas · última há 2 meses'], ['Bruno Sá', '7 visitas'], ['Carlos Mota', '1 visita'], ['Diana Reis', '5 visitas'], ['Joana Alves', '9 visitas']],
+    ficha: { nome: 'Ana Ferreira', iniciais: 'AF', desde: 'Cliente desde março de 2026', dados: [['Visitas', '12'], ['Gasto total', '204 €'], ['Última visita', 'há 3 sem.'], ['Próxima', 'sáb 10:30']], carimbos: 2, prefere: 'Corte + Barba · com o Rui' } },
+
+  { ate: 66.0, tipo: 'precos', fundo: 'escuro', linhas: [T('8 · Mudas um preço…', { tam: 100, cor: AM }), T('e o site muda na hora', { tam: 110, it: true, a: 3.3, modo: 'bate' })], topoTitulo: 90, descer: 60, negocio: NEG, dominio: 'barbeariadorui.pt',
+    servicos: [['Corte', '12 €'], ['Corte + Barba', '18 €'], ['Barba', '8 €'], ['Corte criança', '10 €']], alvo: 0, novo: '13 €', escreve: 1.8, guarda: 3.0, batidas: [3.3] },
+
+  { ate: 70.5, tipo: 'ia', fundo: 'escuro', linhas: tit('9 · Pedes', 'e está feito'), topoTitulo: 90, topo: 470, pedido: 'Fecha a agenda do Tiago no sábado de manhã', responde: 3.0,
+    resposta: 'Feito. Bloqueei a agenda do Tiago no sábado, das 9h às 13h. Não havia marcações nesse período.', nota: 'Tá-se Bem AI · módulo opcional' },
+  { ate: 74.5, tipo: 'chamada', fundo: 'escuro', linhas: tit('E até atende', 'o telefone'), topoTitulo: 90, descer: 225, escala: 1.08, numero: '+351 913 ••• •••', marca: 2.9, resultado: 'Corte · sex 17 · 15:00 · com o Rui',
+    falas: [['cli', 'Queria marcar um corte para sexta à tarde.', 0.5], ['ai', 'Tenho às 15:00 com o Rui. Pode ser?', 1.3], ['cli', 'Perfeito, obrigado!', 2.1]] },
+
+  { ate: 82.5, tipo: 'texto', fundo: 'preto', linhas: [] },
+  { ate: 85.0, tipo: 'texto', fundo: 'fogo', batidas: [0.3, 1.2], linhas: [T('E no fim', { tam: 170 }), T('do dia?', { tam: 260, cor: TI, sombra: false, it: true, a: 0.6, modo: 'bate' })] },
+  { ate: 90, tipo: 'logo', fundo: 'preto', slogan: 'Site · Marcações · Encomendas · Painel', botao: 'tassbem.pt', rodape: 'WhatsApp +351 933 748 892', semEntrada: true },
+] };
+</script>
+<script src="engine-guia.js"></script>
+<script src="engine.js"></script>
+</body></html>
